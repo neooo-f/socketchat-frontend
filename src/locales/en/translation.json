@@ -1,0 +1,13 @@
+{
+    "header": {
+        "title": "Welcome to SocketChat!",
+        "subtitle": "\"privacy is everything\""
+    },
+    "login": {
+        "submit": "Login",
+        "placeholder": {
+            "username": "username",
+            "password": "password"
+        }
+    }
+}
