@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
-import { ChatCard } from '../../components/ChatCard/ChatCard';
+// import { ChatCard } from '../../components/ChatCard/ChatCard';
 
 export const Home: React.FC = (): ReactElement => {
   return (
-    <nav className="bg-gray-600 shadow-lg h-screen fixed top-0 left-0 min-w-[350px] py-6 px-4 font-[sans-serif] overflow-auto">
+    <nav className="flex flex-col bg-gray-600 shadow-lg h-screen fixed top-0 left-0 min-w-[350px] py-6 px-4 font-[sans-serif] overflow-auto">
       <h6 className="text-white text-sm font-bold px-4">Information</h6>
-      <ChatCard />
-      <ChatCard />
-      <ChatCard />
-      <ChatCard />
+      <div className="flex-1 flex flex-col">
+        {/* ChatList Component */}
+        {/* <ChatCard />
+        <ChatCard />
+        <ChatCard />
+        <ChatCard /> */}
+      </div>
     </nav>
   );
 };
