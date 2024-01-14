@@ -1,12 +1,23 @@
-import React, { ReactElement } from 'react';
-import { Outlet } from 'react-router-dom';
-// import { Navigate, Outlet } from 'react-router-dom';
+import React, { ReactElement, useContext } from 'react';
+import { Navigate, Outlet /* useNavigate */ } from 'react-router-dom';
 // import { useAuth } from '../../hooks/useAuth';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
-export const ProtectedRoute: React.FC = (): ReactElement => {
-  // TODO: replace!!!!! to protect routes!!!!
+export const ProtectedRoute: React.FC = (): ReactElement | null => {
   // const { user } = useAuth();
+  const { user } = useContext(AuthContext);
+  // const navigate = useNavigate();
+  console.log('user from useauth in protectedroute: ', user);
 
-  // return user ? <Outlet /> : <Navigate replace to="/login" />;
-  return <Outlet />;
+  // if (!user) {
+  //   navigate('/login');
+  //   return null;
+  // }
+
+  // return <Outlet />;
+
+  return user ? <Outlet /> : <Navigate replace to="/login" />;
+
+  // only use for testing!
+  // return <Outlet />;
 };

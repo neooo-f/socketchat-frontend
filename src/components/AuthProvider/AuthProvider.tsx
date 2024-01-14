@@ -1,13 +1,11 @@
 import React, { useState, ReactNode } from 'react';
-
-type User = {
-  username: string;
-  password: string;
-};
+import { handleToken } from '../../util/tokenHelper';
+import { getProfile } from '../../services/userService';
+import { UserType } from '../../types/user-type';
 
 export type AuthContextProps = {
-  user: User | null;
-  login: (userData: User) => void;
+  user: UserType | null;
+  login: (user: { username: string; password: string }) => void;
   logout: () => void;
 };
 
@@ -22,17 +20,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }: {
   children: ReactNode;
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
 
-  console.log('AuthProvider');
-
-  const login = (userData: User) => {
-    // Login Auth Logic
-    setUser(userData);
+  const login = async (user: { username: string; password: string }) => {
+    await handleToken(user);
+    const { data } = await getProfile();
+    setUser(data);
+    console.log(data, 'login successfull!');
   };
 
   const logout = () => {
-    // Logout Auth Logic
+    // TODO: Logout Auth Logic
     setUser(null);
   };
 

@@ -27,12 +27,12 @@ const getDefaultHeaders = (
 };
 
 const instance: AxiosInstance = axios.create({
-  baseURL: process.env.BASE_URL + '/api/',
+  baseURL: import.meta.env.VITE_BASE_URL + '/api/',
   withCredentials: true,
 });
 
 export const buildUrl = (endpoint: string): string =>
-  `${process.env.BASE_URL}/api/${endpoint}`;
+  `${import.meta.env.VITE_BASE_URL}/api/${endpoint}`;
 
 export const fetch = async <T>(
   url: string,
@@ -40,7 +40,7 @@ export const fetch = async <T>(
   body?: unknown,
   options?: Partial<AxiosRequestConfig>,
   headers?: Partial<RawAxiosRequestHeaders>,
-  baseURL = process.env.BASE_URL + '/api/',
+  baseURL = import.meta.env.VITE_BASE_URL + '/api/',
   withCredentials = true,
 ): Promise<AxiosResponse<T>> => {
   if (!url) {

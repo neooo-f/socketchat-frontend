@@ -5,6 +5,7 @@ import { Header } from '../../components/Header/Header';
 import { useTranslation } from 'react-i18next';
 import { handleFocus } from '../../util/inputHelper';
 import { handleBlur } from '../../util/inputHelper';
+import { useNavigate } from 'react-router-dom';
 
 type LoginFormInput = {
   username: string;
@@ -14,6 +15,7 @@ type LoginFormInput = {
 export const Login: React.FC = (): ReactElement => {
   const { t } = useTranslation();
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,6 +28,7 @@ export const Login: React.FC = (): ReactElement => {
   const onSubmit = (data: LoginFormInput) => {
     console.log(data);
     login({ username: data.username, password: data.password });
+    navigate('/');
   };
 
   return (
@@ -36,7 +39,7 @@ export const Login: React.FC = (): ReactElement => {
         {/* TODO: later maybe give Header className prop */}
         <div className="mb-3">
           <input
-            className="border rounded p-2 w-full text-center placeholder-center"
+            className="border rounded p-2 w-full text-center placeholder-center text-black"
             {...register('username')}
             placeholder={t('login.placeholder.username')}
             onFocus={handleFocus}
@@ -47,7 +50,7 @@ export const Login: React.FC = (): ReactElement => {
         </div>
         <div className="mb-6">
           <input
-            className="border rounded p-2 w-full text-center placeholder-center"
+            className="border rounded p-2 w-full text-center placeholder-center text-black"
             {...register('password')}
             placeholder={t('login.placeholder.password')}
             onFocus={handleFocus}
