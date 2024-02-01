@@ -1,18 +1,42 @@
 import { ReactElement } from 'react';
-// import { ChatCard } from '../../components/ChatCard/ChatCard';
+import { ChatList } from '../../components/ChatList/ChatList';
+import { ChatSection } from '../../components/ChatSection/ChatSection';
+import { useTranslation } from 'react-i18next';
+import { handleBlur, handleFocus } from '../../util/inputHelper';
 
 export const Home: React.FC = (): ReactElement => {
+  const { t } = useTranslation();
+
   return (
-    <nav className="flex flex-col bg-gray-600 shadow-lg h-screen fixed top-0 left-0 min-w-[350px] py-6 px-4 font-[sans-serif] overflow-auto">
-      <h6 className="text-white text-sm font-bold px-4">Information</h6>
-      <div className="flex-1 flex flex-col">
-        {/* ChatList Component */}
-        {/* <ChatCard />
-        <ChatCard />
-        <ChatCard />
-        <ChatCard /> */}
+    <div className="h-full max-w-screen">
+      <nav className="flex flex-col bg-gray-600 shadow-lg h-screen fixed top-0 left-0 min-w-[350px] py-6 px-4 font-[sans-serif] overflow-auto">
+        <div className="flex space-x-4 mb-3">
+          <button className="flex-1 border border-solid border-blue-500 text-white px-4 py-2 rounded-md cursor-pointer">
+            0
+          </button>
+          <button className="flex-1 border border-solid border-blue-500 text-white px-4 py-2 rounded-md cursor-pointer">
+            0
+          </button>
+          <button className="flex-1 border border-solid border-blue-500 text-white px-4 py-2 rounded-md cursor-pointer">
+            0
+          </button>
+        </div>
+        <input
+          className="border rounded p-2 w-full text-center placeholder-center text-black"
+          placeholder={t('home.placeholder.searchChats')}
+          onFocus={handleFocus}
+          onBlur={(event) =>
+            handleBlur(event, t, 'home.placeholder.searchChats')
+          }
+        />
+        <div className="flex-1 flex flex-col">
+          <ChatList />
+        </div>
+      </nav>
+      <div className="h-full border border-solid border-white margin-left ml-[350px]">
+        <ChatSection className="h-full w-full" />
       </div>
-    </nav>
+    </div>
   );
 };
 

@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
+import testImage from '../../assets/testimage.jpeg';
 
 export const ChatCard: React.FC<{
   className?: string;
-  imageUrl: string;
+  imageUrl: string | null;
   name: string;
   unreadMessages: number;
 }> = ({ className, imageUrl, name, unreadMessages }): ReactElement => {
@@ -12,7 +13,7 @@ export const ChatCard: React.FC<{
       style={{ backgroundColor: '#242424' }}
     >
       <img
-        src={imageUrl}
+        src={imageUrl ? imageUrl : /* '' */ testImage}
         alt="Profilbild"
         className="rounded-full w-12 h-12 object-cover mr-2 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-12 lg:h-12 xl:w-16 xl:h-16"
       />

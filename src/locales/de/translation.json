@@ -2,5 +2,11 @@
     "header": {
         "title": "Wilkommen auf SocketChat!",
         "subtitle": "\"Privatsphäre ist alles\""
+    },
+    "login": {
+
+    },
+    "register": {
+
     }
 }

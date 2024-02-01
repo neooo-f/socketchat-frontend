@@ -9,5 +9,13 @@
             "username": "username",
             "password": "password"
         }
+    },
+    "register": {
+
+    },
+    "home": {
+        "placeholder": {
+            "searchChats": "Search chats..."
+        }
     }
 }
