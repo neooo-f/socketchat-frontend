@@ -1,11 +1,19 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { ChatList } from '../../components/ChatList/ChatList';
 import { ChatSection } from '../../components/ChatSection/ChatSection';
 import { useTranslation } from 'react-i18next';
 import { handleBlur, handleFocus } from '../../util/inputHelper';
+import { EmptySectionState } from '../../components/ChatSection/EmptySectionState';
 
 export const Home: React.FC = (): ReactElement => {
   const { t } = useTranslation();
+  const [id, setId] = useState<{
+    userId?: string;
+    groupId?: string;
+  }>({
+    userId: undefined,
+    groupId: undefined,
+  });
 
   return (
     <div className="h-full max-w-screen">
@@ -22,7 +30,8 @@ export const Home: React.FC = (): ReactElement => {
           </button>
         </div>
         <input
-          className="border rounded p-2 w-full text-center placeholder-center text-black"
+          className="border rounded p-2 w-full text-center placeholder-center text-white"
+          style={{ backgroundColor: '#242424' }}
           placeholder={t('home.placeholder.searchChats')}
           onFocus={handleFocus}
           onBlur={(event) =>
@@ -30,11 +39,20 @@ export const Home: React.FC = (): ReactElement => {
           }
         />
         <div className="flex-1 flex flex-col">
-          <ChatList />
+          <ChatList
+            onClick={(userId?: string, groupId?: string) =>
+              setId({ userId, groupId })
+            }
+          />
         </div>
       </nav>
-      <div className="h-full border border-solid border-white margin-left ml-[350px]">
-        <ChatSection className="h-full w-full" />
+      <div className="h-full margin-left ml-[350px]">
+        {!id || (id.userId === undefined && id.groupId === undefined) ? (
+          <EmptySectionState className="h-full w-full flex justify-center place-items-center" />
+        ) : (
+          //TODO: justify-between not needed anymore, when messages are loaded
+          <ChatSection className="h-full w-full flex flex-col justify-between" />
+        )}
       </div>
     </div>
   );

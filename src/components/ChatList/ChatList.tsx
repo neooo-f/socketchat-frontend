@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 import { useChats } from '../../hooks/useChats';
 import { ChatCard } from '../ChatCard/ChatCard';
 
-export const ChatList: React.FC<{ className?: string }> = ({
-  className,
-}): ReactElement => {
+export const ChatList: React.FC<{
+  className?: string;
+  onClick: (userId?: string, groupId?: string) => void;
+}> = ({ className, onClick }): ReactElement => {
   const { chats } = useChats();
 
   return (
@@ -16,6 +17,11 @@ export const ChatList: React.FC<{ className?: string }> = ({
           imageUrl={chat.profileImageUrl}
           name={chat.name}
           unreadMessages={chat.unreadMessages}
+          groupId={chat.groupId}
+          userId={chat.userId}
+          onClick={(userId?: string, groupId?: string) =>
+            onClick(userId, groupId)
+          }
         />
       )) || null}
     </div>

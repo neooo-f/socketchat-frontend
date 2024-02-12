@@ -6,11 +6,31 @@ export const ChatCard: React.FC<{
   imageUrl: string | null;
   name: string;
   unreadMessages: number;
-}> = ({ className, imageUrl, name, unreadMessages }): ReactElement => {
+  groupId?: string;
+  userId?: string;
+  onClick: (userId?: string, groupId?: string) => void;
+}> = ({
+  className,
+  imageUrl,
+  name,
+  unreadMessages,
+  onClick,
+  groupId,
+  userId,
+}): ReactElement => {
   return (
     <div
-      className={`flex items-center p-2 sm:p-4 rounded-lg ${className}`}
+      className={`flex items-center p-2 sm:p-4 rounded-lg cursor-pointer ${className}`}
       style={{ backgroundColor: '#242424' }}
+      onClick={() => {
+        if (groupId) {
+          onClick(undefined, groupId);
+        }
+
+        if (userId) {
+          onClick(userId);
+        }
+      }}
     >
       <img
         src={imageUrl ? imageUrl : /* '' */ testImage}
