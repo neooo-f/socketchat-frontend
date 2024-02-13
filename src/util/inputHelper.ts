@@ -1,6 +1,8 @@
 import { TFunction } from 'i18next';
 
-export const handleFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+export const handleFocus = (
+  event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+) => {
   // empty string to replace placeholder
   event.target.placeholder = '';
 };

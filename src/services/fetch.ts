@@ -7,13 +7,13 @@ import axios, {
 } from 'axios';
 
 export const getToken = async (): Promise<string | null> => {
-    const access_token = sessionStorage.getItem('access_token');
+  const access_token = sessionStorage.getItem('access_token');
 
-    if (access_token) {
-        return access_token;
-    } else {
-        return null;
-    }
+  if (access_token) {
+    return access_token;
+  } else {
+    return null;
+  }
 };
 
 const getDefaultHeaders = (

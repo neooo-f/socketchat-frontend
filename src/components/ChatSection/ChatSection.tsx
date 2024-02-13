@@ -3,6 +3,7 @@ import { ChatHeader } from '../ChatHeader/ChatHeader';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { DisplayMessages } from '../DisplayMessages/DisplayMessages';
 import { useChat } from '../../hooks/useChat';
+import { useMessages } from '../../hooks/useMessages';
 
 export const ChatSection: React.FC<{
   className?: string;
@@ -10,6 +11,7 @@ export const ChatSection: React.FC<{
   userId?: string;
 }> = ({ className, groupId, userId }): ReactElement => {
   const { chat } = useChat(userId, groupId);
+  const { messages } = useMessages(userId, groupId);
 
   return (
     <div className={className}>
@@ -20,7 +22,10 @@ export const ChatSection: React.FC<{
             toUserName={chat.name}
             imageUrl={chat.profileImageUrl}
           />
-          <DisplayMessages /* className="border rounded" */ />
+          <DisplayMessages
+            messages={messages}
+            className="overflow-scroll border"
+          />
           <ChatInput />
         </>
       ) : (
