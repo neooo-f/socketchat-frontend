@@ -13,7 +13,6 @@ export const ChatSection: React.FC<{
 
   return (
     <div className={className}>
-      {/* TODO: set other background color for header */}
       {chat ? (
         <>
           <ChatHeader
