@@ -11,7 +11,17 @@
         }
     },
     "register": {
-
+        "submit": "Register",
+        "placeholder": {
+            "username": "username",
+            "firstName": "first name",
+            "lastName": "last name",
+            "password": "password",
+            "repeatPassword": "repeat password",
+            "dateOfBirth": "date of birth",
+            "biography": "biography"
+        },
+        "signIn": "Sign In"
     },
     "home": {
         "placeholder": {

@@ -1,6 +1,5 @@
 import React, { useState, ReactNode } from 'react';
 import { getUserFromToken, handleToken } from '../../util/tokenHelper';
-// import { getProfile } from '../../services/userService';
 import { UserType } from '../../types/user-type';
 
 export type AuthContextProps = {
@@ -26,8 +25,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const login = async (userData: { username: string; password: string }) => {
     await handleToken(userData);
-    // TODO: old way -> codereview
-    // const { data } = await getProfile();
     const profile = getUserFromToken();
     setUser(profile);
   };

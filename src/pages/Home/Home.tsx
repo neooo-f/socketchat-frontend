@@ -7,6 +7,7 @@ import { EmptySectionState } from '../../components/ChatSection/EmptySectionStat
 
 export const Home: React.FC = (): ReactElement => {
   const { t } = useTranslation();
+
   const [id, setId] = useState<{
     userId?: string;
     groupId?: string;
@@ -14,6 +15,11 @@ export const Home: React.FC = (): ReactElement => {
     userId: undefined,
     groupId: undefined,
   });
+
+  const handleClick = (userId?: string, groupId?: string) => {
+    setId({ userId, groupId });
+    console.log('chat changed: ', userId, groupId);
+  };
 
   return (
     <div className="h-full max-w-screen">
@@ -39,11 +45,7 @@ export const Home: React.FC = (): ReactElement => {
           }
         />
         <div className="flex-1 flex flex-col">
-          <ChatList
-            onClick={(userId?: string, groupId?: string) =>
-              setId({ userId, groupId })
-            }
-          />
+          <ChatList onClick={handleClick} />
         </div>
       </nav>
       <div className="h-full margin-left ml-[350px]">
@@ -51,7 +53,11 @@ export const Home: React.FC = (): ReactElement => {
           <EmptySectionState className="h-full w-full flex justify-center place-items-center" />
         ) : (
           //TODO: justify-between not needed anymore, when messages are loaded
-          <ChatSection className="h-full w-full flex flex-col justify-between" />
+          <ChatSection
+            className="h-full w-full flex flex-col justify-between"
+            groupId={id.groupId}
+            userId={id.userId}
+          />
         )}
       </div>
     </div>

@@ -1,22 +1,30 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Header } from '../../components/Header/Header';
-import { /* handleBlur, */ handleFocus } from '../../util/inputHelper';
-// import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { handleBlur, handleFocus } from '../../util/inputHelper';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { register as registerUser } from '../../services/authService';
+import { ImageUploader } from '../../components/ImageUploader/ImageUploader';
+import { Gender } from '../../types/user-type';
 
 type RegisterFormInput = {
   username: string;
   firstName: string;
   lastName: string;
+  gender: Gender;
   password: string;
   confirmPassword: string;
   dateOfBirth: string;
-  biography: string;
+  biography?: string;
 };
 
 export const Register: React.FC = (): ReactElement => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  // TODO: maybe handle file with usefrom in future
+  const [profileImage, setProfileImage] = useState<File | undefined>(undefined);
 
   const {
     register,
@@ -27,7 +35,10 @@ export const Register: React.FC = (): ReactElement => {
   } = useForm<RegisterFormInput>();
 
   const onSubmit = async (data: RegisterFormInput) => {
-    console.log(data);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { confirmPassword, ...newUser } = data;
+    await registerUser(newUser, profileImage);
+    navigate('/login');
   };
 
   return (
@@ -36,7 +47,12 @@ export const Register: React.FC = (): ReactElement => {
         <Header />
         <br /> <br />
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* TODO: later maybe give Header className prop */}
+          <div className="mb-5 flex justify-center">
+            <ImageUploader
+              onUpload={(files) => setProfileImage(files)}
+              onRemove={() => setProfileImage(undefined)}
+            />
+          </div>
           <div className="mb-3">
             <input
               className="border rounded p-2 w-full text-center placeholder-center text-black"
@@ -44,34 +60,45 @@ export const Register: React.FC = (): ReactElement => {
               placeholder={'username'}
               onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.username')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.username')
               }
             />
           </div>
           <div className="mb-3">
             <input
               className="border rounded p-2 w-full text-center placeholder-center text-black"
-              {...register('password')}
+              {...register('firstName')}
               placeholder={'first name'}
               onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.password')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.firstName')
               }
             />
           </div>
           <div className="mb-3">
             <input
               className="border rounded p-2 w-full text-center placeholder-center text-black"
-              {...register('password')}
+              {...register('lastName')}
               placeholder={'last name'}
               onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.password')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.lastName')
               }
             />
+          </div>
+          <div className="mb-3">
+            <select
+              {...register('gender')}
+              className="border rounded p-2 w-full text-center placeholder-center text-black"
+              defaultValue={''}
+            >
+              <option value="" disabled hidden>
+                Select Gender
+              </option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Other</option>
+            </select>
           </div>
           <div className="mb-3">
             <input
@@ -80,44 +107,40 @@ export const Register: React.FC = (): ReactElement => {
               placeholder={'password'}
               onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.password')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.password')
               }
             />
           </div>
           <div className="mb-3">
             <input
               className="border rounded p-2 w-full text-center placeholder-center text-black"
-              {...register('password')}
+              {...register('confirmPassword')}
               placeholder={'repeat password'}
               onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.password')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.repeatPassword')
               }
             />
           </div>
           <div className="mb-3">
             <input
               className="border rounded p-2 w-full text-center placeholder-center text-black"
-              {...register('password')}
+              {...register('dateOfBirth')}
               placeholder={'date of birth'}
               onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.password')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.dateOfBirth')
               }
             />
           </div>
           <div className="mb-6">
             <textarea
               className="border rounded p-2 w-full text-center placeholder-center text-black"
-              {...register('password')}
+              {...register('biography')}
               placeholder={'biography'}
-              onFocus={(event) => console.log(event)}
+              onFocus={handleFocus}
               onBlur={(event) =>
-                // handleBlur(event, t, 'login.placeholder.password')
-                console.log(event)
+                handleBlur(event, t, 'register.placeholder.biography')
               }
             />
           </div>

@@ -14,6 +14,7 @@ export const useChats = (): UseChatsType => {
         const fetchData = async () => {
           try {
             const { data } = await getChats();
+            console.log(data);
             setChats(data);
           } catch (error) {
             console.error('Fehler beim Abrufen der Chats:', error);
@@ -21,7 +22,6 @@ export const useChats = (): UseChatsType => {
         };
     
         fetchData();
-        console.log(chats);
       }, []);
     
 

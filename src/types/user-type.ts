@@ -1,15 +1,15 @@
 export type UserType = {
     id: string;
     username: string;
-    password?: string;
+    password: string;
     firstName: string;
     lastName: string;
     gender: Gender
-    dateOfBirth: Date;
-    biography: string;
+    dateOfBirth: string;
+    biography?: string;
 }
 
-enum Gender {
+export enum Gender {
     MALE = 'MALE',
     FEMALE = 'FEMALE',
     OTHER = 'OTHER'

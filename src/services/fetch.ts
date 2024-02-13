@@ -40,6 +40,7 @@ export const fetch = async <T>(
   body?: unknown,
   options?: Partial<AxiosRequestConfig>,
   headers?: Partial<RawAxiosRequestHeaders>,
+  params?: Record<string, unknown>,
   baseURL = import.meta.env.VITE_BASE_URL + '/api/',
   withCredentials = true,
 ): Promise<AxiosResponse<T>> => {
@@ -56,6 +57,8 @@ export const fetch = async <T>(
       ? (options.headers as Partial<RawAxiosRequestHeaders>)
       : {};
 
+  // const contentTypeHeader = body instanceof FormData && { 'Content-Type': 'multipart/form-data' };
+
   return instance.request({
     url,
     method,
@@ -63,6 +66,7 @@ export const fetch = async <T>(
     withCredentials,
     headers: { ...defaultHeaders, ...otherHeaders, ...headers },
     data: body,
+    params,
     ...options,
   });
 };

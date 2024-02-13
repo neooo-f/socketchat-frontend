@@ -14,9 +14,9 @@ export const ChatCard: React.FC<{
   imageUrl,
   name,
   unreadMessages,
-  onClick,
   groupId,
   userId,
+  onClick,
 }): ReactElement => {
   return (
     <div

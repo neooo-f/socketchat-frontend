@@ -4,13 +4,13 @@ import testImage from '../../assets/testimage.jpeg';
 export const ChatHeader: React.FC<{
   className?: string;
   toUserName: string;
-}> = ({ className, toUserName }): ReactElement => {
+  imageUrl: string | null;
+}> = ({ className, toUserName, imageUrl }): ReactElement => {
   return (
     <div className={className}>
       <div className="flex items-center">
         <img
-          //src={imageUrl ? imageUrl : /* '' */ testImage}
-          src={testImage}
+          src={imageUrl ? imageUrl : /* '' */ testImage}
           alt="Profilbild"
           className="rounded-full w-12 h-12 object-cover mr-2 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-12 lg:h-12 xl:w-16 xl:h-16"
         />
