@@ -4,24 +4,26 @@ import { getGroupMessages, getSingleMessages } from '../services/messageService'
 
 type UseMessagesType = {
   messages?: MessageType[];
+  setFilter: React.Dispatch<React.SetStateAction<{ take: number, skip: number }>>;
+  hasMore: boolean;
   // isLoading: boolean;
 };
 
 export const useMessages = (userId?: string, groupId?: string): UseMessagesType => {
-  // TODO: loadmore at scrolling
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [filter, setFilter] = useState<{ take: number; skip: number }>({
-    take: 200,
+    take: 15,
     skip: 0,
   });
-
   const [messages, setMessages] = useState<MessageType[]>();
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (groupId) {
           const { data } = await getGroupMessages(groupId, filter.take, filter.skip);
+          setHasMore(data.length > 0);
           console.log(data);
           setMessages(data);
         }
@@ -40,6 +42,8 @@ export const useMessages = (userId?: string, groupId?: string): UseMessagesType 
   }, [userId, groupId]);
 
   return {
-    messages
+    messages,
+    setFilter,
+    hasMore
   };
 };

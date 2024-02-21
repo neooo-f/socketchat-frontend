@@ -6,9 +6,34 @@ import { getMessageTimeFromDateString } from '../../util/dateHelper';
 export const DisplayMessages: React.FC<{
   className?: string;
   messages?: MessageType[];
-}> = ({ className, messages }): ReactElement => {
+  setFilter: React.Dispatch<
+    React.SetStateAction<{ take: number; skip: number }>
+  >;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+}> = ({ className, messages, setFilter }): ReactElement => {
+  // const hasMore = true;
+
+  // const observer = useRef<IntersectionObserver | null>();
+  // const lastMessageElementRef = useCallback(
+  //   (node: Element | null): void => {
+  //     // if (loading) return
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting && hasMore) {
+  //         setFilter((prevFilter) => ({
+  //           take: prevFilter.take,
+  //           skip: prevFilter.skip + 15,
+  //         }));
+  //         console.log('load more!!');
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [hasMore],
+  // );
+
   return (
-    <div className={className + 'flex flex-col space-y-2'}>
+    <div className={className}>
       {messages?.map((message, index) => (
         <MessageBubble
           key={index}
