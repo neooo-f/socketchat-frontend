@@ -1,7 +1,7 @@
 export type SocketMessageType = {
-    id: string;
-    senderId: string; // (userId)
-    toUserId: string;
-    toGroupId: string;
-    content: string;
-}
+  id: string;
+  senderId: string; // (userId)
+  toUserId: string;
+  toGroupId: string;
+  content: string;
+};

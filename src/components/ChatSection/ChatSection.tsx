@@ -1,4 +1,5 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useContext, useEffect } from 'react';
+import { AuthContext } from '../../components/AuthProvider/AuthProvider';
 import { ChatHeader } from '../ChatHeader/ChatHeader';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { DisplayMessages } from '../DisplayMessages/DisplayMessages';
@@ -13,47 +14,11 @@ export const ChatSection: React.FC<{
 }> = ({ className, groupId, userId }): ReactElement => {
   const { chat } = useChat(userId, groupId);
   const { messages, setFilter } = useMessages(userId, groupId);
-
-  // TODO: outsource later on in hook!
-  // const socket = io('http://127.0.0.1:3001');
-  // useEffect(() => {
-  //   socket.on('connect', () => {
-  //     console.log('Verbunden mit dem WebSocketGateway-Server');
-
-  //     // test workflow with same user (neoo.lf), same mesage ()
-
-  //     if (userId === 'cbab1e58-bea2-43bc-a803-46e7c63967df') {
-  //       socket.emit('join', 'wexxer', undefined);
-
-  //       socket.emit('message', {
-  //         fromUserId: '41ff2b88-0b76-43d9-9d96-39a0c2aa1a2e',
-  //         content: 'Die ersti nachricht usem FRONTEND!!!',
-  //         toUserId: 'cbab1e58-bea2-43bc-a803-46e7c63967df',
-  //       });
-  //     }
-  //   });
-
-  //   if (userId === '41ff2b88-0b76-43d9-9d96-39a0c2aa1a2e') {
-  //     socket.emit('join', 'wexxer', undefined);
-  //   }
-
-  //   socket.on('message', (message) => {
-  //     console.log('Nachricht vom Server erhalten:', message);
-  //   });
-
-  //   return () => {
-  //     socket.disconnect(); // Verbindung beim Komponentenabbau trennen
-  //   };
-  // }, []);
-
-  // FIXME: new try
+  const { user } = useContext(AuthContext);
 
   const socket = io('http://127.0.0.1:3001', {
     query: {
-      userId:
-        userId === 'cbab1e58-bea2-43bc-a803-46e7c63967df'
-          ? '41ff2b88-0b76-43d9-9d96-39a0c2aa1a2e'
-          : 'cbab1e58-bea2-43bc-a803-46e7c63967df',
+      userId: user!.id,
     },
     transports: ['websocket'],
   });
